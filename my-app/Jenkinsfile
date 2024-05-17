@@ -13,9 +13,9 @@ pipeline {
                 echo "M2_HOME = /opt/maven"
             }
         }
-       stage('Compile') {
+       stage('Build') {
            steps {
-               sh 'mvn clean compile' // Build the application using Maven
+               sh 'mvn clean package' // Build the application using Maven
            }
        }
        stage('Test') {
