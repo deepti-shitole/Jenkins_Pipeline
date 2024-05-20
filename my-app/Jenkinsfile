@@ -15,12 +15,12 @@ pipeline {
         }
        stage('Build') {
            steps {
-               sh 'mvn clean package' // Build the application using Maven
+               bat 'mvn clean package' // Build the application using Maven
            }
        }
        stage('Test') {
            steps {
-               sh 'mvn test' // Run unit tests using Maven
+               bat 'mvn test' // Run unit tests using Maven
            }
        }
    }
