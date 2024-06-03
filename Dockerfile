@@ -19,7 +19,6 @@ RUN mvn clean package
 # Stage 2: Runtime stage
 FROM openjdk:17-slim AS runtime
 
-
 # Set the working directory in the container
 WORKDIR /app
 
@@ -28,4 +27,3 @@ COPY --from=build /app/target/my-app.jar ./my-app.jar
 
 # Command to run the application
 CMD ["java", "-jar", "my-app.jar"]
-
