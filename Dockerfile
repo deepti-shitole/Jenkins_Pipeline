@@ -5,16 +5,25 @@ FROM maven:3.8.3-openjdk-17-slim AS build
 WORKDIR /app
 
 # Copy the Maven project files to the container
-COPY pom.xml .
+COPY my-app/pom.xml .
 
 # Download dependencies and build the application
 RUN mvn dependency:go-offline
 
 # Copy the application source code to the container
-COPY ./src ./src
+COPY my-app/src ./src
 
 # Build the application
 RUN mvn clean package
 
+# Stage 2: Runtime stage
+FROM openjdk:17-slim AS runtime
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file from the build stage to the container
+COPY --from=build /app/target/my-app.jar ./my-app.jar
+
 # Command to run the application
-CMD ["java", "-jar", "target/my-app.jar"]
+CMD ["java", "-jar", "my-app.jar"]
